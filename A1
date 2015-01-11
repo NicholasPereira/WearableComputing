@@ -1,0 +1,45 @@
+# WearableComputing
+Code used for in assignments for Wearable Computing class at OCADU University
+
+#include <Servo.h>
+Servo myServo;
+
+int pushButton = 2;
+int fan = 11;
+int pos = 0;
+int pushed = 0;
+int pressed;
+
+void setup() {
+  myServo.attach(9);
+  pinMode(pushButton, INPUT);
+  pinMode(fan, OUTPUT);
+  Serial.begin(9600);
+}
+
+void loop() {
+  pressed = digitalRead(pushButton);
+  if (pressed == HIGH) {
+    pushed++;
+    Serial.println("PUSHED");
+  }
+
+  if (pushed == 1) {
+    passGas();
+  } 
+}
+
+void passGas() {
+  for(pos = 0; pos < 90; pos++) {
+    myServo.write(pos);
+    delay(15);
+  }
+  digitalWrite(fan, HIGH);
+  delay(4000);
+  digitalWrite(fan, LOW);
+  for(pos = 90; pos >= 1; pos--) {
+    myServo.write(pos);
+    delay(15);
+  }
+  pushed=0;
+}
