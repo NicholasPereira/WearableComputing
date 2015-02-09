@@ -1,0 +1,67 @@
+/*
+Nicholas Pereira
+Wearable Computing Assignment two. 
+Musical instrument.
+
+*/
+
+
+//distance sensor
+int trigger = 5;
+int echo = 6;
+
+//force sensors 
+int forceOne = A5;
+int forceTwo = A4;
+int forceThree = A3;
+int forceFour = A2;
+
+//variables
+int forceValueOne, forceValueTwo, forceValueThree, forceValueFour;
+int delayValue;
+
+void setup() { 
+  Serial.begin(9600);
+  pinMode(trigger, OUTPUT);
+  pinMode(echo, INPUT);
+}
+
+void loop() {
+  int duration, distance;
+  digitalWrite(trigger, HIGH);
+  delayMicroseconds(1000);
+  digitalWrite(trigger,LOW);
+  duration = pulseIn(echo, HIGH);
+  distance = (duration/2) /29.1;
+  Serial.print(distance);
+  Serial.print(" cm");
+  delay(200);
+  
+  //Read force sensors
+  forceValueOne = analogRead(forceOne);
+  forceValueTwo = analogRead(forceTwo);
+  forceValueThree = analogRead(forceThree);
+  forceValueFour = analogRead(forceFour);
+
+  //Set the delay value respectively  
+  if(forceValueOne > 150) {
+   delayValue = 50; 
+  }
+  if(forceValueTwo > 150) {
+   delayValue = 100; 
+  }
+  if(forceValueThree > 150) {
+   delayValue = 200; 
+  }
+  if(forceValueFour > 150) {
+   delayValue = 400; 
+  }
+  
+    //TONES AND PITCH
+  int pitch = map(distance, 0, 200, 2093, 22);
+  Serial.print( " ");
+  Serial.println( pitch);
+  tone(9, pitch);
+  delay(delayValue);
+  noTone(9);
+}
