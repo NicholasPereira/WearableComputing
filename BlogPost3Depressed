@@ -1,0 +1,15 @@
+int led = 11;
+int slowValueDelay = random(1250, 1750);
+int brightnessValue[] = {10, 15, 25, 40, 35};
+
+void setup() {
+  pinMode(led, OUTPUT);
+  Serial.begin(9600); 
+}
+
+void loop() {
+  int num = random(5);
+  analogWrite(led, num);
+  delay(slowValueDelay);
+  
+}
