@@ -1,0 +1,19 @@
+int randNumbers[] = {
+  random(75), random(100,175), random(200,255)};
+int led = 11;
+
+void setup() {
+  pinMode(led, OUTPUT);
+  Serial.begin(9600); 
+}
+
+void loop() {
+  for(int i = 0; i < 3; i++){
+    randomFn(randNumbers[i], 400);
+  }
+}
+
+void randomFn(int value, int dlength) {
+  analogWrite(led, value);
+  delay(dlength); 
+}
