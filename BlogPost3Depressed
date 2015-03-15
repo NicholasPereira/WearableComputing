@@ -9,7 +9,7 @@ void setup() {
 
 void loop() {
   int num = random(5);
-  analogWrite(led, num);
+  analogWrite(led, brightnessValue[num]);
   delay(slowValueDelay);
   
 }
