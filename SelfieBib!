@@ -1,0 +1,64 @@
+/* 
+Nicholas Pereira
+Selfie Bib
+Wearable Computing OCADU
+*/
+#include <Servo.h> 
+ 
+Servo servoA;  
+Servo servoB;
+
+int button = 5;
+
+int posA = 0;
+int posB = 90;
+
+int pressed;
+int on = 0;
+ 
+void setup() 
+{ 
+  Serial.begin(9600);
+  servoA.attach(8);  
+  servoB.attach(9); 
+  pinMode(button, INPUT); 
+} 
+ 
+ 
+void loop() 
+{ 
+  pressed = digitalRead(button);
+  if(pressed == HIGH) {
+   on = 1; 
+   
+   Serial.println("PRESSED");
+  } else {
+    on = 0;
+  }
+  
+  
+  if(button == HIGH && on == 1) {
+    for(posA = 0; posA < 90; posA++) {
+     servoA.write(posA);
+    delay(50); 
+    }
+    for(posB = 90; posB > 0; posB--) {
+     servoA.write(posB);
+    delay(50); 
+    }
+  }
+  if(button == HIGH && on == 0) {
+    for(posA = 90; posA > 0; posA--) {
+     servoA.write(posA);
+    delay(50); 
+    }
+    for(posB = 0; posB < 90; posB++) {
+     servoA.write(posB);
+    delay(50); 
+    }
+  }
+  
+  
+  
+  
+} 
